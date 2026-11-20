@@ -1,0 +1,10 @@
+{% for report in reports %}
+<article class="report">
+  <h3>{{ report.title }}</h3>
+  <p class="muted">{{ report.place }}{% if report.username is defined %} · {{ report.username }}{% endif %}</p>
+  <p class="details">{{ report.details }}</p>
+  <time datetime="{{ report.created_at.isoformat() }}">{{ report.created_at.strftime('%d/%m/%Y %H:%M') }}</time>
+</article>
+{% else %}
+<p class="muted">Todavía no hay reportes.</p>
+{% endfor %}

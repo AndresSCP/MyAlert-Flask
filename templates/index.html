@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block map_css %}{% include "map_css.html" %}{% endblock %}
+{% block content %}
+<section class="heading">
+  <h1>Reportes vecinales</h1>
+  <a class="button" href="{{ url_for('new_report') }}">Publicar reporte</a>
+</section>
+<div class="dashboard">
+  <section aria-labelledby="map-heading">
+    <h2 id="map-heading">Mapa de reportes</h2>
+    <div id="map" aria-label="Mapa de reportes"></div>
+    <p id="map-status" role="status" class="muted"></p>
+    <script id="pins" type="application/json">{{ pins | tojson }}</script>
+  </section>
+  <section aria-labelledby="recent-heading">
+    <h2 id="recent-heading">Reportes recientes</h2>
+    {% include "report_list.html" %}
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}{% include "map_scripts.html" %}{% endblock %}

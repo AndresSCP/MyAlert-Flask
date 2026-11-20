@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Mis reportes</h1>
+<p class="muted">{{ g.user.username }}</p>
+<div class="report-history">{% include "report_list.html" %}</div>
+{% endblock %}

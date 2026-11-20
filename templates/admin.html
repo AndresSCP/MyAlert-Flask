@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Administración</h1>
+<p>{{ users | length }} cuentas · {{ total }} reportes</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Usuario</th><th scope="col">Correo</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.username }}</td><td>{{ user.email }}</td><td>{{ user.role }}</td>
+      <td>{{ 'Activo' if user.active else 'Inactivo' }}</td>
+      <td>{% if user.role == 'cliente' %}
+        <form method="post" action="{{ url_for('set_user_status', user_id=user.id) }}">
+          <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+          <button class="text-button" name="active" value="{{ 0 if user.active else 1 }}">{{ 'Desactivar' if user.active else 'Activar' }}</button>
+        </form>
+      {% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

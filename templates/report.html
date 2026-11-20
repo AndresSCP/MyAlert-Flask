@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block map_css %}{% include "map_css.html" %}{% endblock %}
+{% block content %}
+<h1>Publicar reporte</h1>
+<form class="dashboard" method="post">
+  <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+  <section class="stack">
+    <label>Título <input name="title" maxlength="100" value="{{ request.form.get('title', '') }}" required></label>
+    <label>Lugar <input name="place" maxlength="150" value="{{ request.form.get('place', '') }}" required></label>
+    <label>Descripción <textarea name="details" rows="5" maxlength="2000" required>{{ request.form.get('details', '') }}</textarea></label>
+    <button class="button">Publicar</button>
+  </section>
+  <section aria-labelledby="location-heading">
+    <h2 id="location-heading">Ubicación opcional</h2>
+    <p class="muted">Selecciona un punto en el mapa o ingresa sus coordenadas.</p>
+    <div id="map" aria-label="Mapa para seleccionar la ubicación"></div>
+    <p id="map-status" role="status" class="muted"></p>
+    <div class="coordinate-fields">
+      <label>Latitud <input type="number" name="lat" id="lat" min="-90" max="90" step="any" value="{{ request.form.get('lat', '') }}"></label>
+      <label>Longitud <input type="number" name="lon" id="lon" min="-180" max="180" step="any" value="{{ request.form.get('lon', '') }}"></label>
+    </div>
+    <button class="text-button" id="clear-pin" type="button">Quitar ubicación</button>
+  </section>
+</form>
+{% endblock %}
+{% block scripts %}{% include "map_scripts.html" %}{% endblock %}
